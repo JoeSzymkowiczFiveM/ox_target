@@ -1,10 +1,11 @@
-if not lib.checkDependency('ox_core', '0.19.0', true) then return end
+local file = ('imports/%s.lua'):format(IsDuplicityVersion() and 'server' or 'client')
+local import = LoadResourceFile('ox_core', file)
+local chunk = assert(load(import, ('@@ox_core/%s'):format(file)))
+chunk()
 
-local Ox = require '@ox_core.lib.init' --[[@as OxClient]]
 local utils = require 'client.utils'
-local player = Ox.GetPlayerData()
 
 ---@diagnostic disable-next-line: duplicate-set-field
 function utils.hasPlayerGotGroup(filter)
-    return player.getGroup(filter)
+    return player.hasGroup(filter)
 end
